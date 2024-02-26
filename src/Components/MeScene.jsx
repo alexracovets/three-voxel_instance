@@ -18,8 +18,7 @@ function MeScene() {
         <Canvas>
             <ambientLight intensity={1} />
             <spotLight position={[5, 10, 7]} intensity={50} />
-            <PerspectiveCamera makeDefault position={[15, -10, 20]} />
-            <OrbitControls maxPolarAngle={Math.PI / 2} enableZoom={false}  minZoom={4}/>
+            <PerspectiveCamera position={[0, 3, 5]}></PerspectiveCamera>
             <MeScroll models={modelURLs} currentScene={currentScene} setCurrentScene={setCurrentScene} />
             <Plane args={[100, 100]} position={[0, -3.2, 0]} rotation={[-Math.PI / 2, 0, 0]} castShadow receiveShadow>
                 <meshStandardMaterial color={'gray'} receiveShadow />
