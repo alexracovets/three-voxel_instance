@@ -28,41 +28,39 @@ const MAX_INSTANCES = 1000;
 function MeInstance({ scale, position, color, anim, setIsAnim }) {
     const meshRef = useRef();
     const targetColor = useMemo(() => new THREE.Color(color), [color]);
-    // useThree(() => {
-    //     console.log([meshRef.current.position.x, meshRef.current.position.y, meshRef.current.position.z] === [position[0], position[1], position[2]])
-    // })
 
     useEffect(() => {
         if (anim && meshRef.current) {
             console.log(false)
             const tl = gsap.timeline({
+                ease: "power3.out",
                 onComplete: () => setIsAnim(false),
                 onStart: () => setIsAnim(false)
             });
-            // tl.to(meshRef.current.position, {
-            //     x: (Math.random() - 0.5) * 10,
-            //     y: (Math.random() - 0.5) * 10,
-            //     z: (Math.random() - 0.5) * 10,
-            //     duration: 0.5,
-            // });
+            tl.to(meshRef.current.position, {
+                x: (Math.random() - 0.5) * 5,
+                y: (Math.random() - 0.5) * 5,
+                z: (Math.random() - 0.5) * 5,
+                duration: 0.5,
+            });
             tl.to(meshRef.current.scale, {
                 x: scale[0],
                 y: scale[1],
                 z: scale[2],
-                duration: 0.5,
+                duration: 1,
             }, "<");
             tl.to(meshRef.current.color, {
                 r: targetColor.r,
                 g: targetColor.g,
                 b: targetColor.b,
-                duration: 0.5,
+                duration: 1,
             }, "<");
             tl.to(meshRef.current.position, {
-                // delay: 0.5,
+                delay: 0.5,
                 x: position[0],
                 y: position[1],
                 z: position[2],
-                duration: 0.5,
+                duration: 1,
             }, "<");
         }
     }, [anim, position, scale, targetColor, setIsAnim]);
@@ -99,6 +97,7 @@ function InstancedVoxels({ voxels }) {
                         position={
                             voxels[i] ?
                                 [voxels[i].position.x, voxels[i].position.y, voxels[i].position.z] :
+                                // [voxels[i].position.x + (Math.random() - 0.5) * 0.1, voxels[i].position.y + (Math.random() - 0.5) * 0.1, voxels[i].position.z + (Math.random() - 0.5) * 0.1] :
                                 [(Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10]
                         }
                         color={
